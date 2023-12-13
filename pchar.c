@@ -1,24 +1,27 @@
-#include"monty.h"
-/**
-* pchar - prints the char at the top of the stack
-* @stack: pointer to stack
-* @line_number: line number
-* Return: void
-*/
-void pchar(stack_t **stack, unsigned int line_number)
-{
-	stack_t *temp = *stack;
+#include "monty.h"
 
-	(void)line_number;
-	if (stack == NULL || *stack == NULL)
+/**
+ * pchar - Print the character at the top of the stack.
+ * @head: Double pointer to the stack
+ * @value: Unused argument (required by the opcode function pointer)
+ */
+void pchar(stack_t **head, unsigned int value)
+{
+	int number = 0;
+	(void)value;
+
+	if (head == NULL || *head == NULL)
 	{
-		fprintf(stderr, "L%d: can't pchar, stack empty\n", line_number);
+		fprintf(stderr, "L%d: can't pchar, stack empty\n", number);
 		exit(EXIT_FAILURE);
 	}
-	if (temp->n < 0 || temp->n > 127)
+
+	if ((*head)->n < 0 || (*head)->n > 127)
 	{
-		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
+		fprintf(stderr, "L%d: can't pchar, value out of range\n", number);
 		exit(EXIT_FAILURE);
 	}
-	printf("%c\n", temp->n);
+
+	putchar((*head)->n);
+	putchar('\n');
 }

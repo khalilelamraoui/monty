@@ -1,22 +1,25 @@
-#include"monty.h"
-/**
-* pop - removes the top element of the stack
-* @stack: pointer to stack
-* @line_number: line number
-* Return: void
-*/
-void pop(stack_t **stack, unsigned int line_number)
-{
-	stack_t *temp = *stack;
+#include "monty.h"
 
-	(void)line_number;
-	if (stack == NULL || *stack == NULL)
+/**
+ * pop - removes the top element of the stack
+ * @head: pointer to the stack
+ * @value: not used
+ *
+ * Return: void
+ */
+void pop(stack_t **head, unsigned int value)
+{
+	stack_t *tmp = *head;
+	(void)value;
+
+	if (*head)
 	{
-		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		*head = (*head)->next;
+		free(tmp);
+	}
+	else
+	{
+		fprintf(stderr, "Error: can't pint, stack empty\n");
 		exit(EXIT_FAILURE);
 	}
-	if (temp->next != NULL)
-		temp->next->prev = NULL;
-	*stack = temp->next;
-	free(temp);
 }

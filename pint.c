@@ -1,19 +1,24 @@
-#include"monty.h"
-/**
-* pint - prints the value at the top of the stack
-* @stack: pointer to stack
-* @line_number: line number
-* Return: void
-*/
-void pint(stack_t **stack, unsigned int line_number)
-{
-	stack_t *temp = *stack;
+#include "monty.h"
 
-	(void)line_number;
-	if (stack == NULL || *stack == NULL)
+/**
+ * pint - prints the stack's top value
+ * @head: pointer to the stack
+ * @value: not used
+ *
+ * Return: void
+ */
+void pint(stack_t **head, unsigned int value)
+{
+	stack_t *curnt = *head;
+	(void)value;
+
+	if (curnt)
 	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		printf("%d\n", curnt->n);
+	}
+	else
+	{
+		fprintf(stderr, "Error: can't pint, stack empty\n");
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", temp->n);
 }

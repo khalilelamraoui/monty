@@ -1,24 +1,17 @@
-#include"monty.h"
-/**
-* mul - multiplies the second top element of the stack with the top element
-* @stack: pointer to stack
-* @line_number: line number
-* Return: void
-*/
-void mul(stack_t **stack, unsigned int line_number)
-{
-	stack_t *temp = *stack;
-	int mul;
+#include "monty.h"
 
-	(void)line_number;
-	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
-	{
-		fprintf(stderr, "L%d: can't mul, stack too short\n",
-			line_number);
-		exit(EXIT_FAILURE);
-	}
-	mul = temp->n * temp->next->n;
-	temp->next->n = mul;
-	*stack = temp->next;
-	free(temp);
+/**
+ * mul - multiplies the top two elements of the stack
+ * @head: Double pointer to the stack
+ * @value: Unused argument (required by the opcode function pointer)
+ */
+void mul(stack_t **head, unsigned int value)
+{
+	stack_t *tmp;
+	(void)value;
+
+	(*head)->next->n *= (*head)->n;
+	tmp = *head;
+	*head = (*head)->next;
+	free(tmp);
 }

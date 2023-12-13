@@ -2,13 +2,10 @@
 #define MONTY_H
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <unistd.h>
-#include <sys/wait.h>
-#include <sys/stat.h>
-#include <stdarg.h>
 
 /**
 * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -21,11 +18,11 @@
 */
 typedef struct stack_s
 {
-		int n;
-
-		struct stack_s *prev;
-		struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
+
 /**
 * struct instruction_s - opcode and its function
 * @opcode: the opcode
@@ -37,67 +34,36 @@ typedef struct stack_s
 typedef struct instruction_s
 {
 	char *opcode;
-
 	void (*f)(stack_t **stack, unsigned int line_number);
-
 } instruction_t;
-/**
-* struct global_s - global variable
-* @value: value to push
-* Description: global variable
-*/
-typedef struct global_s
-{
-		int value;
-
-} global_t;
-extern global_t var_global;
-global_t var_global;
-
-void (*get_op_func(char *s))(stack_t **stack, unsigned int line_number);
-
-ssize_t getline(char **line, size_t *size, FILE *stream);
-
-int is_number(char *s);
-
-void read_file(char *file_name, stack_t **stack);
-
-void push(stack_t **stack, unsigned int line_number);
-
-void pall(stack_t **stack, unsigned int line_number);
-
-typedef void (*instruct_func)(stack_t **stack, unsigned int line_number);
-instruct_func get_op_func(char *str);
 
 
-void free_dlistint(stack_t *head);
+int execute(stack_t **head, char *line, unsigned int len);
 
-void pint(stack_t **stack, unsigned int line_number);
+int custom_getline(char **lineptr, size_t *n, FILE *stream);
 
-void pop(stack_t **stack, unsigned int line_number);
+char *_strdup(char *str);
 
-void swap(stack_t **stack, unsigned int line_number);
+void int_stack(stack_t **head);
+void free_stack(stack_t **head);
 
-void add(stack_t **stack, unsigned int line_number);
+void add(stack_t **head, unsigned int value);
+void sub(stack_t **head, unsigned int value);
+void divi(stack_t **head, unsigned int value);
+void mul(stack_t **head, unsigned int value);
+void mod(stack_t **head, unsigned int value);
+void nop(stack_t **head, unsigned int value);
 
-void nop(stack_t **stack, unsigned int line_number);
+void push(stack_t **head, unsigned int value);
+void pall(stack_t **head, unsigned int value);
+void pint(stack_t **head, unsigned int value);
+void pop(stack_t **head, unsigned int value);
+void swap(stack_t **head, unsigned int value);
 
-void sub(stack_t **stack, unsigned int line_number);
+void pstr(stack_t **head, unsigned int value);
+void pchar(stack_t **head, unsigned int value);
 
-void mul(stack_t **stack, unsigned int line_number);
-
-void divi(stack_t **stack, unsigned int line_number);
-
-void mod(stack_t **stack, unsigned int line_number);
-
-void pchar(stack_t **stack, unsigned int line_number);
-
-void pstr(stack_t **stack, unsigned int line_number);
-
-void rotl(stack_t **stack, unsigned int line_number);
-
-void rotr(stack_t **stack, unsigned int line_number);
-
-
+void rotl(stack_t **head, unsigned int value);
+void rotr(stack_t **head, unsigned int value);
 
 #endif

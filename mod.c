@@ -1,30 +1,31 @@
-#include"monty.h"
-/**
-* mod - computes the rest of the division of the second top element
-* of the stack by the top element of the stack
-* @stack: pointer to stack
-* @line_number: line number
-* Return: void
-*/
-void mod(stack_t **stack, unsigned int line_number)
-{
-	stack_t *temp = *stack;
-	int mod;
+#include "monty.h"
 
-	(void)line_number;
-	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
+/**
+ * mod - calculates the remainder of the division of the second top
+ * element of the stack by the top element of the stack.
+ * @head: double pointer to the stack
+ * @value: not used
+ */
+void mod(stack_t **head, unsigned int value)
+{
+	stack_t *temp;
+	int number = 0;
+	(void)value;
+
+	if (head == NULL || *head == NULL || (*head)->next == NULL)
 	{
-		fprintf(stderr, "L%d: can't mod, stack too short\n",
-			line_number);
+		fprintf(stderr, "L%d: can't mod, stack too short\n", number);
 		exit(EXIT_FAILURE);
 	}
-	if (temp->n == 0)
+
+	if ((*head)->n == 0)
 	{
-		fprintf(stderr, "L%d: division by zero\n", line_number);
+		fprintf(stderr, "L%d: division by zero\n", number);
 		exit(EXIT_FAILURE);
 	}
-	mod = temp->next->n % temp->n;
-	temp->next->n = mod;
-	*stack = temp->next;
+
+	(*head)->next->n %= (*head)->n;
+	temp = *head;
+	*head = (*head)->next;
 	free(temp);
 }

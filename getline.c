@@ -1,44 +1,46 @@
 #include "monty.h"
+
 /**
-* getline - Custom getline function to read input from stream.
-* @line: Pointer to the input buffer.
-* @size: Pointer to the size of the input buffer.
-* @stream: The input stream.
-* Return: The number of characters read, -1 on failure.
-*/
-ssize_t getline(char **line, size_t *size, FILE *stream)
+ * custom_getline - scans a line from a stream.
+ * @line: Buffer for the line.
+ * @n: Size of the buffer.
+ * @stream: Input stream.
+ * Return: Number of characters read, -1 on error or EOF.
+ */
+
+int custom_getline(char **line, size_t *n, FILE *stream)
 {
-	char *buffer, *tmp;
+	int btsRead = 0;
+	size_t totalBtsRead = 0;
+	int ch;
+	char *newLine;
 
-	size_t bufsize = 0;
-	int c;
-
-	unsigned long int i = 0;
-
-	if (line == NULL || size == NULL || stream == NULL)
+	if (line == NULL || n == NULL || stream == NULL)
 		return (-1);
-	buffer = malloc(sizeof(char) * 1024);
-	if (buffer == NULL)
-		return (-1);
-	bufsize = 1024;
-	while ((c = fgetc(stream)) != EOF && c != '\n')
+	if (*line == NULL || *n == 0)
 	{
-		if (i == bufsize)
-		{
-			tmp = realloc(buffer, bufsize * 2);
-			if (tmp == NULL)
-			{
-				free(buffer);
-				return (-1);
-			}
-			buffer = tmp;
-			bufsize *= 2;
-		}
-		buffer[i++] = c;
+		*n = 128;
+		*line = (char *)malloc(*n);
+		if (*line == NULL)
+			return (-1);
 	}
-	buffer[i] = '\0';
-	*line = buffer;
-	*size = bufsize;
-	return (i);
-	free(buffer);
+	while ((ch = fgetc(stream)) != EOF)
+	{
+		if (totalBtsRead >= *n - 1)
+		{
+			*n *= 2;
+			newLine = (char *)realloc(*line, *n);
+			if (newLine == NULL)
+				return (-1);
+			*line = newLine;
+		}
+		(*line)[totalBtsRead++] = (char)ch;
+		btsRead++;
+		if (ch == '\n')
+			break;
+	}
+	if (btsRead == 0 && totalBtsRead == 0)
+		return (-1);
+	(*line)[totalBtsRead] = '\0';
+	return (totalBtsRead);
 }

@@ -1,12 +1,12 @@
-#include"monty.h"
+#include "monty.h"
+
 /**
-* nop - does nothing
-* @stack: pointer to stack
-* @line_number: line number
-* Return: void
-*/
-void nop(stack_t **stack, unsigned int line_number)
+ * nop - no operation
+ * @head: double pointer to the stack
+ * @value: unused
+ */
+void nop(stack_t **head, unsigned int value)
 {
-	(void)stack;
-	(void)line_number;
+	(void)head;
+	(void)value;
 }

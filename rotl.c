@@ -1,23 +1,26 @@
-#include"monty.h"
-/**
-* rotl - rotates the stack to the top
-* @stack: pointer to stack
-* @line_number: line number
-* Return: void
-*/
-void rotl(stack_t **stack, unsigned int line_number)
-{
-	stack_t *temp = *stack;
-	int temp_n;
+#include "monty.h"
 
-	(void)line_number;
-	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
+/**
+ * rotl - rotates stack to top
+ * @head: Double pointer to the stack
+ * @value: Unused argument (required by the opcode function pointer)
+ */
+void rotl(stack_t **head, unsigned int value)
+{
+	stack_t *one = *head;
+	stack_t *two = one->next;
+	stack_t *tmp = one;
+	(void)value;
+
+	if (head == NULL || *head == NULL || (*head)->next == NULL)
 		return;
-	temp_n = temp->n;
-	while (temp->next != NULL)
-	{
-		temp->n = temp->next->n;
-		temp = temp->next;
-	}
-	temp->n = temp_n;
+
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+
+	*head = two;
+	two->prev = NULL;
+	tmp->next = one;
+	one->prev = tmp;
+	one->next = NULL;
 }

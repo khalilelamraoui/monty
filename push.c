@@ -1,30 +1,24 @@
-#include"monty.h"
-/**
-* push - pushes an element to the stack
-* @stack: pointer to stack
-* @line_number: line number
-* Return: void
-*/
-void push(stack_t **stack, unsigned int line_number)
-{
-	stack_t *new_node;
+#include "monty.h"
 
-	(void)line_number;
-	new_node = malloc(sizeof(stack_t));
-	if (new_node == NULL)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
+/**
+ * push - pushes an element to the stack
+ * @head: pointer to the stack
+ * @value: value to be added to the stack
+ *
+ */
+void push(stack_t **head, unsigned int value)
+{
+	stack_t *node;
+
+	node = malloc(sizeof(stack_t));
+	if (!node)
 		exit(EXIT_FAILURE);
-	}
-	new_node->n = var_global.value;
-	new_node->prev = NULL;
-	new_node->next = NULL;
-	if (*stack == NULL)
+	node->n = value;
+	node->prev = NULL;
+	node->next = *head;
+	if (*head)
 	{
-		*stack = new_node;
-		return;
+		(*head)->prev = node;
 	}
-	new_node->next = *stack;
-	(*stack)->prev = new_node;
-	*stack = new_node;
+	*head = node;
 }

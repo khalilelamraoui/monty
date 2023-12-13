@@ -1,25 +1,29 @@
-#include"monty.h"
-/**
-* rotr - rotates the stack to the bottom
-* @stack: pointer to stack
-* @line_number: line number
-* Return: void
-*/
-void rotr(stack_t **stack, unsigned int line_number)
-{
-	stack_t *temp = *stack;
-	int temp_n;
+#include "monty.h"
 
-	(void)line_number;
-	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
+/**
+ * rotr - rotates stack to bottom
+ * @head: Double pointer to the stack
+ * @value: un used
+ */
+void rotr(stack_t **head, unsigned int value)
+{
+	stack_t *last = *head;
+	stack_t *lastTwo = last;
+	stack_t *tmp = last;
+	(void)value;
+
+	if (head == NULL || *head == NULL || (*head)->next == NULL)
 		return;
-	while (temp->next != NULL)
-		temp = temp->next;
-	temp_n = temp->n;
-	while (temp->prev != NULL)
+
+	while (tmp->next != NULL)
 	{
-		temp->n = temp->prev->n;
-		temp = temp->prev;
+		lastTwo = tmp;
+		tmp = tmp->next;
 	}
-	temp->n = temp_n;
+
+	lastTwo->next = NULL;
+	tmp->next = last;
+	last->prev = tmp;
+	*head = tmp;
+	tmp->prev = NULL;
 }
