@@ -7,9 +7,17 @@
 ```
 $ gcc -Wall -Werror -Wextra -pedantic -std=c89 *.c -o monty
 ```
+- Any output must be printed on `stdout`
+- Any error message must be printed on `stderr`
 
 <hr>
-The monty program
+
+## Tests
+* We strongly encourage you to work all together on a set of tests
+
+<hr>
+
+# The monty program
 
 ## Usage:
 ```monty file```
