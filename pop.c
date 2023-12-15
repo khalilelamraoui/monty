@@ -9,6 +9,7 @@
  */
 void pop(stack_t **head, unsigned int value)
 {
+	int num = 0;
 	stack_t *tmp = *head;
 	(void)value;
 
@@ -19,7 +20,7 @@ void pop(stack_t **head, unsigned int value)
 	}
 	else
 	{
-		fprintf(stderr, "Error: can't pint, stack empty\n");
+		fprintf(stderr, "L%d: can't pint, stack empty\n", num);
 		exit(EXIT_FAILURE);
 	}
 }
